@@ -51,7 +51,7 @@ void ustawNaSzachownicy(int* szachownica[], int x, int y) {
     szachownica[y][x] = -1;
 }
 
-int ruch(int* szachownica[], int wielkosc, int x, int y, int nx, int ny, int wariant) {
+int sprawdzRuch(int* szachownica[], int wielkosc, int x, int y, int nx, int ny, int wariant) {
     
     switch (wariant)
     {
@@ -94,7 +94,7 @@ int ruch(int* szachownica[], int wielkosc, int x, int y, int nx, int ny, int war
     return 1; // Falsz
 }
 
-int wykonaj(int* szachownica[], int x, int y, int *nx, int *ny, int wariant) {
+int wykonajRuch(int* szachownica[], int x, int y, int *nx, int *ny, int wariant) {
     switch (wariant)
     {
     case 0:
@@ -136,10 +136,10 @@ int wykonaj(int* szachownica[], int x, int y, int *nx, int *ny, int wariant) {
 void ustawPozycje(int* szachownica[], int wielkosc, int *x, int *y, int ktory, int wariant) {
     int nx, ny;
 
-    if (ruch(szachownica, wielkosc, *x, *y, nx, ny, wariant) == 0)
+    if (sprawdzRuch(szachownica, wielkosc, *x, *y, nx, ny, wariant) == 0)
     {  
         szachownica[*y][*x] = ktory;
-        wykonaj(szachownica, *x, *y, &nx, &ny, wariant);
+        wykonajRuch(szachownica, *x, *y, &nx, &ny, wariant);
         ustawNaSzachownicy(szachownica, nx, ny);
         wyswietlSzachownice(szachownica, wielkosc);
     } else {
@@ -170,7 +170,7 @@ int main()
     ustawNaSzachownicy(szachownicaWSK, x, y);
 
     wyswietlSzachownice(szachownicaWSK, wielkosc);
-
+    
     ustawPozycje(szachownicaWSK, wielkosc, &x, &y, 1, 2);
 
     return 0;

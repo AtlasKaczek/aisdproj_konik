@@ -1,7 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-
 // FUNCKJE SZACHOWNICA: Wyświetla planszę do gry
 void wyswietlSzachownice(int* szachownica[], int wielkosc) {
     printf("Szachownica (%d na %d): \n\n", wielkosc, wielkosc); // wyświetlenie szachownicy
@@ -133,7 +132,7 @@ int wykonajRuch(int* szachownica[], int x, int y, int *nx, int *ny, int wariant)
     return 0;
 }
 // ustawia pozycję konika na szachownicy
-void ustawPozycje(int* szachownica[], int wielkosc, int *x, int *y, int ktory, int wariant) {
+void ustawPozycje(int* szachownica[], int wielkosc, int *x, int *y, int *ktory, int wariant) {
     int nx, ny;
 
     if (sprawdzRuch(szachownica, wielkosc, *x, *y, nx, ny, wariant) == 0)
@@ -142,6 +141,7 @@ void ustawPozycje(int* szachownica[], int wielkosc, int *x, int *y, int ktory, i
         wykonajRuch(szachownica, *x, *y, &nx, &ny, wariant); // wykonuje posuniecie konika podany przez uzytkownika
         ustawNaSzachownicy(szachownica, nx, ny); // ustawia na szachownicy konika
         wyswietlSzachownice(szachownica, wielkosc); // wyswietla szachownice o wielkosci podanej przez uzytkownika
+        *ktory++;
     } else {
         printf("Ruch niemozliwy!\n\n"); // pokazanie, ze ustawienie jest niemozliwe do wykonania
     }
@@ -149,11 +149,62 @@ void ustawPozycje(int* szachownica[], int wielkosc, int *x, int *y, int ktory, i
 
 int main()
 {
-    // SZACHOWNICA (wygląd)
-    int wielkosc; // wielkosc szachownicy
-    printf("Podaj wielkosc szachownicy: ");
-    scanf("%d", &wielkosc);
-    int szachownica[wielkosc][wielkosc]; // szachownica
+    int wybor, wielkosc=0, ruch=-1, licznik=1;
+    int x; // pozycja na osi x
+    int y; // pozycja na osi y
+    printf("Menu Wyboru\n\n");
+
+    do{
+        printf("1. Rozmiar szachownicy\n");
+        printf("2. Pozycja konika\n");
+        printf("3. Ruch\n");
+        printf("4. Wyjscie\n\n");
+        printf("Wybierz: ");
+        scanf("%d",&wybor);
+
+        switch (wybor)
+        {
+            case 1:
+                // SZACHOWNICA (wygląd)
+                printf("Podaj wielkosc szachownicy: ");
+                scanf("%d", &wielkosc);
+                int szachownica[wielkosc][wielkosc]; // szachownica
+                int* szachownicaWSK[wielkosc]; // tablica wskaznikow (uzytkowa)
+                for (int i = 0; i < wielkosc; i++) {
+                szachownicaWSK[i]= szachownica[i];  
+                }
+                wyczyscSzachownice(szachownicaWSK, wielkosc);
+                wyswietlSzachownice(szachownicaWSK, wielkosc);
+                break;
+            case 2:
+                wpiszPozycje(&x,&y, wielkosc);
+                ustawNaSzachownicy(szachownicaWSK, x, y);
+                wyswietlSzachownice(szachownicaWSK, wielkosc);//pokazuje widok szachowncy
+                break;
+            case 3:
+                while(ruch<0 || ruch>=8){
+                printf("Wybierz ruch (od 0 do 7): ");
+                scanf("%d",&ruch);
+                if (ruch<0 || ruch>=8){
+                    printf("Bledny ruch!");
+                }
+                }
+                ustawPozycje(szachownicaWSK, wielkosc, &x, &y, &licznik, ruch);// ustawienie konika na szchownicy
+                break;
+            case 4: printf("\nOpuszczono program\n");
+                break;
+
+            default:printf("\nWybrano zly numer!\n\n");
+        }
+
+    } while(wybor != 4);
+
+
+    /* SZACHOWNICA (wygląd)
+    //int wielkosc; // wielkosc szachownicy
+    //printf("Podaj wielkosc szachownicy: ");
+    //scanf("%d", &wielkosc);
+    //int szachownica[wielkosc][wielkosc]; // szachownica
     
     int* szachownicaWSK[wielkosc]; // tablica wskaznikow (uzytkowa)
     for (int i = 0; i < wielkosc; i++) {
@@ -172,6 +223,6 @@ int main()
     wyswietlSzachownice(szachownicaWSK, wielkosc);//pokazuje widok szachowncy
     
     ustawPozycje(szachownicaWSK, wielkosc, &x, &y, 1, 2);// ustawienie konika na szchownicy
-
+*/
     return 0;
 }

@@ -9,6 +9,8 @@ int main()
     int x; // pozycja na osi x
     int y; // pozycja na osi y
 
+
+    printf("dzban\n");
     // SZACHOWNICA (wygląd)
     printf("Podaj wielkosc szachownicy: ");
     scanf("%d", &wielkosc);

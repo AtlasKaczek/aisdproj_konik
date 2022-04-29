@@ -15,4 +15,6 @@ int wykonajRuch(int* szachownica[], int *x, int *y, int *nx, int *ny, int warian
 
 void ustawPozycje(int* szachownica[], int wielkosc, int *x, int *y, int *ktory, int wariant);
 
+int symuluj(int* szachownica[], int wielkosc, int *x, int *y, int ktory);
+
 #endif

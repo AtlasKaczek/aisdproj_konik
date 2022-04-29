@@ -93,7 +93,7 @@ int sprawdzRuch(int* szachownica[], int wielkosc, int x, int y, int nx, int ny, 
         ny = y+2; // sprawdza czy dwa ruchy w gore sa mozlwie
         break; 
     }
-    if(nx>=0 && nx<wielkosc && ny>=0 && ny<wielkosc && szachownica[nx][ny]==0) {
+    if(nx>=0 && nx<wielkosc && ny>=0 && ny<wielkosc && szachownica[ny][nx]==0) {
         return 0; // Prawda
     }
     return 1; // Falsz
@@ -153,4 +153,72 @@ void ustawPozycje(int* szachownica[], int wielkosc, int *x, int *y, int *ktory, 
     } else {
         printf("Ruch niemozliwy!\n\n"); // pokazanie, ze ustawienie jest niemozliwe do wykonania
     }
+}
+
+int symuluj(int* szachownica[], int wielkosc, int *x, int *y, int ktory) {
+
+    int nx, ny = 0;
+
+    szachownica[*y][*x] = ktory;
+    //wyswietlSzachownice(szachownica, wielkosc);
+    //int z;
+    //scanf(" %d", &z);
+
+    if (ktory == wielkosc*wielkosc)
+    {
+        wyswietlSzachownice(szachownica, wielkosc);
+        return 0;
+    } else {
+        for (int i = 0; i < 8; i++)
+        {
+            if (sprawdzRuch(szachownica, wielkosc, *x, *y, nx, ny, i) == 0)
+            {
+                switch (i) {
+                case 0:
+                    nx = *x+1; // przesuniecie o pozycje w prawo 
+                    ny = *y+2; // przesuniecie o dwie pozycje do gory
+                    break;
+                case 1:
+                    nx = *x+2; // przesuniecie o dwie pozycje w prawo   
+                    ny = *y+1; // przesunicie o dwie pozycje do gory
+                    break;
+                case 2:
+                    nx = *x+2;  // przesuniecie o dwie pozycje w prawo
+                    ny = *y-1; // przesuniecie o jedna pozycje w dol
+                    break;
+                case 3:
+                    nx = *x+1;  // przesuniecie o jedna pozycje w prawo
+                    ny = *y-2;  // przesuniecie o dwie pozycje w dol
+                    break;
+                case 4:
+                    nx = *x-1;  // przesunicie o jedna pozycje w lewo   
+                    ny = *y-2;  // przesuniecie o dwie pozycje w dol
+                    break;
+                case 5:
+                    nx = *x-2; // przesuniecie o dwie pozycje w lewo
+                    ny = *y-1; // przesunicie o jedna pozycje w dol 
+                    break;
+                case 6:
+                    nx = *x-2; // przesuniecie o dwie pozycje w lewo
+                    ny = *y+1; // przesuniecie o jedna pozycje w gore
+                    break;
+                case 7:
+                    nx = *x-1; // przesuniecie o jedna pozycje w lewo   
+                    ny = *y+2; // przesuniecie o dwie pozycje w gore
+                    break;
+                }
+                if (symuluj(szachownica, wielkosc, &nx, &ny, ktory+1) == 0)
+                {
+                    return 0;
+                }
+                
+            }
+            
+        }
+        szachownica[*y][*x] = 0;
+        
+    }
+
+    return 1;
+    
 }

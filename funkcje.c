@@ -160,9 +160,9 @@ int symuluj(int* szachownica[], int wielkosc, int *x, int *y, int ktory) {
     int nx, ny = 0;
 
     szachownica[*y][*x] = ktory;
-    //wyswietlSzachownice(szachownica, wielkosc);
-    //int z;
-    //scanf(" %d", &z);
+    wyswietlSzachownice(szachownica, wielkosc);
+    int z;
+    scanf(" %d", &z);
 
     if (ktory == wielkosc*wielkosc)
     {

@@ -1,5 +1,9 @@
 #ifndef FUNKCJE
 #define FUNKCJE
+/// Plik Header 
+/**
+* Plik ten służy do importowania funckji z innych plików, do pliku docelowego.  
+*/
 
 void wyswietlSzachownice(int* szachownica[], int wielkosc);
 

@@ -2,7 +2,10 @@
 #include <stdlib.h>
 
 #include "funkcje.h"
-
+/// Funckje szachownica
+/** 
+* Funckja wyświetla szachownię, która została podana przez użytkownika.
+*/
 // FUNCKJE SZACHOWNICA: Wyświetla planszę do gry
 void wyswietlSzachownice(int* szachownica[], int wielkosc) {
     printf("Szachownica (%d na %d): \n\n", wielkosc, wielkosc); // wyświetlenie szachownicy
@@ -24,6 +27,10 @@ void wyswietlSzachownice(int* szachownica[], int wielkosc) {
     }
     printf("\n");
 }
+/// Funkcja wyczyść szchownicę 
+/**
+* Funckja zeruje wszystkie miejsca na szachownicy 
+*/
 // funckja zeruje wszystkie miejsca szachownicy: plansza jest pust. 
 void wyczyscSzachownice(int* szachownica[], int wielkosc) {
     for (int i = 0; i < wielkosc; i++)
@@ -35,7 +42,12 @@ void wyczyscSzachownice(int* szachownica[], int wielkosc) {
     }
     
 }
-
+/// Funkcja konik 
+/**
+* Funkcja wczytuje z klawiatury użytkownika dane jakie podał,
+* Następnie podaną pozycję przez użytkownika przekazuje do programu
+* Konik zostaje ustawiony na pozycji 
+*/
 // FUNKCJE KONIK: Funkcja odpowiadająca za wczytanie pozycji konika podanej przez użytkownika
 void wpiszPozycje(int *x, int *y, int wielkosc) {
     do {
@@ -51,10 +63,20 @@ void wpiszPozycje(int *x, int *y, int wielkosc) {
     } while (!(*x>=0 && *x<wielkosc && *y>=0 && *y<wielkosc));
     printf("\n");
 }
+/// Ustaw na szachownicy 
+/* 
+* Jest to funckja pomocnicza do funckji wyświetl, ustawia na danej pozycji szachownicy wartość -1, która jest wyświetlana jako funckaj k.
+*/
 // fuknkcja wybraną pozycje na szachwoniy
+
 void ustawNaSzachownicy(int* szachownica[], int x, int y) {
     szachownica[y][x] = -1;
 }
+/// Sprawdź pozycję
+/**
+* pozycja podana przez użytkownika jest sprawdzana za pomocą komendy if, która podstawia do poniższych możliwości
+* W momencie gdy dane podane przez użytkownika nie zgadzają się, zwracana jest informacja o błędzie. 
+*/
 // funckajca sprawdza czy ruch konika jest możliwy i zgodny z zasadmi.
 int sprawdzRuch(int* szachownica[], int wielkosc, int x, int y, int nx, int ny, int wariant) {
     
@@ -98,7 +120,11 @@ int sprawdzRuch(int* szachownica[], int wielkosc, int x, int y, int nx, int ny, 
     }
     return 1; // Falsz
 }
-// funkcja rozpatrująca wszystie mozliwosci poruszania się konika szchowego po szchownicy.
+/// Wykonaj ruch 
+/** 
+* Za pomocą wcześniej podanych danych przez użytkownika, program wykonuje możliwe ruchy. 
+* Wykonane ruchy zawsze są zgodne z jednym z 8 założeń podanych w kodzie. 
+*/ 
 int wykonajRuch(int* szachownica[], int *x, int *y, int *nx, int *ny, int wariant) {
     switch (wariant)
     {
@@ -139,6 +165,10 @@ int wykonajRuch(int* szachownica[], int *x, int *y, int *nx, int *ny, int warian
     *y = *ny;
     return 0;
 }
+/// Ustaw Pozycję 
+/**
+* Program ustawia konika na pozycji, która została wcześniej podana przez użytkownika i sprawdzona przez funkcję "Sprawdź ruch"
+*/
 // ustawia pozycję konika na szachownicy
 void ustawPozycje(int* szachownica[], int wielkosc, int *x, int *y, int *ktory, int wariant) {
     int nx, ny;
@@ -154,7 +184,11 @@ void ustawPozycje(int* szachownica[], int wielkosc, int *x, int *y, int *ktory, 
         printf("Ruch niemozliwy!\n\n"); // pokazanie, ze ustawienie jest niemozliwe do wykonania
     }
 }
-
+/// Symuluj 
+/** 
+* Jest implementacja algorytmu rozwiązującego problem konika szachowego.
+* Program sprawdza wszystkie przejścia konika, aby móc wyświetlić końcową tablicę, która jest zapełniona ruchami .
+*/
 int symuluj(int* szachownica[], int wielkosc, int *x, int *y, int ktory) {
 
     int nx, ny = 0;

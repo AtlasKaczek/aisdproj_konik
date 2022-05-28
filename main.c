@@ -28,7 +28,7 @@ int main()
         printf("Menu Wyboru\n\n1. Pozycja konika\n2. Ruch\n3. Wyswietl szachownice\n4. Wyczysc szachownice\n5. Symuluj\n0. Wyjdz\n\n");
         
         printf("Wybierz: ");
-        scanf("%d",&wybor);
+        scanf(" %d",&wybor);
 
         switch (wybor)
         {
